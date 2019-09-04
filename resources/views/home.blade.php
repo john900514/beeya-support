@@ -1,6 +1,7 @@
 @extends('beeya.global.layouts.beeya')
 
 @section('extra-header-stuff')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.7.16/libphonenumber-js.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <style>
         main {
@@ -75,6 +76,8 @@
     <div id="mainContentSection">
         <search-page
             gameid="{!! $game_token !!}"
+            gamerounds="{!! $game_rounds !!}"
+            reqclicks="{!! $reqd_clicks !!}"
         ></search-page>
     </div>
 </main>

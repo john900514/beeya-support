@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Click as Clicks;
 use App\GameSessions;
+use App\Leads;
 use Illuminate\Http\Request;
 use App\Services\BeeyaSearchGateway;
 use App\Http\Controllers\Controller;
@@ -63,6 +64,28 @@ class SearchResultsController extends Controller
             $click->save();
 
             $results = ['success' => true];
+        }
+
+        return response()->json($results);
+    }
+
+    public function create_lead()
+    {
+        $results = ['success' => false, 'reason' => 'Could not create lead.'];
+
+        $data = $this->request->all();
+        /**
+         * Steps
+         * 1.
+         * 2. @todo - fire out the lead to someone
+         * 3. Return true with the lead data
+         */
+        // Create the lead
+        $lead = new Leads($data);
+
+        if($lead->save())
+        {
+            $results = ['success' => true, 'lead' => $lead->toArray()];
         }
 
         return response()->json($results);

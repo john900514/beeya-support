@@ -3,7 +3,7 @@
         <div id="searchWrapper">
             <search-component></search-component>
         </div>
-        <div id="searchResultsWrapper" v-show="totalRecords > 0">
+        <div id="searchResultsWrapper" v-show="(!gameOver) && totalRecords > 0">
             <div class="counter-wrapper">
                 <p>{{ resultsVerbiage }}</p>
             </div>
@@ -20,14 +20,38 @@
                 </div>
             </div>
 
-            <div v-if="showResults" class="result-ctrl-panel">
+            <div v-show="getMoreResults" class="result-ctrl-panel">
                 <div class="ctrl-inner-wrap">
-                    <div class="counter-wrapper">
-
-                    </div>
+                    <div class="counter-wrapper"></div>
 
                     <div id="getMoreBtnWrap">
-                        <button id="getMoreBtn" type="button" @click="startNextRound()" v-show="getMoreResults">Get More Listings</button>
+                        <button id="getMoreBtn" type="button" @click="startNextRound()">Get More Listings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="leadFormWrapper" v-show="gameOver">
+            <div id="innerFormWrap">
+                <div id="formTop">
+                    <h2>{{ gameOverText }}</h2>
+                    <p>Sign up for our personalised news letter with more leads tailored just for you!</p>
+                </div>
+
+                <div id="formContent">
+                    <lead-form
+                        :sessionid="gameid"
+                    ></lead-form>
+                </div>
+
+                <div id="formBottom">
+                    <div id="formCtrlPanel">
+                        <div class="page-reload-button-wrap">
+                            <button type="button" id="pageReloadBtn" onclick="location.reload()">
+                                <i class="fas fa-redo-alt"></i>
+                                <span>Search Again?</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,11 +68,11 @@
 
     export default {
         name: "search-page",
-        props: ['gameid'],
+        props: ['gameid','gamerounds','reqclicks'],
         watch: {
             loading(flag) {
                 this.toggleLoader(flag);
-            },
+            }
         },
         data() {
             return {
@@ -61,19 +85,28 @@
                 recordsRetrieved: 0,
                 page: 1,
                 round: 1,
+                reqRounds: 1,
                 showResults: false,
                 showMoreResultsBtn: false,
                 clicks: 0,
                 resultText: '',
                 clickedPos: '',
+                gameOver: false,
+                gameOverText: 'Ready to take your job search into overdrive?'
             };
         },
         computed: {
             getMoreResults() {
-                if((this.round < 3) && (this.clicks === 5)) {
-                    this.showMoreResultsBtn = true;
-
+                if((this.round < parseInt(this.gamerounds)) && (this.clicks >= parseInt(this.reqclicks))) {
                     return true;
+                }
+                else {
+                    if((this.round === parseInt(this.gamerounds)) && (this.clicks === parseInt(this.reqclicks))) {
+                        let _this = this;
+                        $('#searchResultsWrapper').fadeOut(function () {
+                            _this.gameOver = true;
+                        });
+                    }
                 }
 
                 return false;
@@ -127,8 +160,15 @@
                 this.getSearchResults();
             },
             setResults(results) {
-                this.searchResults.push(results);
-                console.log('Returned results - ' + results.length);
+                if(results !== null) {
+                    this.searchResults.push(results);
+                    console.log('Returned results - ' + results.length);
+                }
+                else {
+                    alert('No results. Try again?');
+                    this.loading = false;
+                }
+
             },
             getSearchResults() {
                 let _this = this;
@@ -198,6 +238,7 @@
                         jobName: job.jobName,
                         company: job.company,
                         jobTitle: job.jobTitle,
+                        agency: job.agencyCode,
                         round: this.round,
                     }
                 };
@@ -237,6 +278,8 @@
         },
         mounted() {
             console.log('Game ID - '+ this.gameid);
+
+            console.log('This game requires the user to make '+this.reqclicks+' click(s) for '+this.gamerounds+' rounds.');
             console.log('Search Page Mounted.')
         }
     }
@@ -288,6 +331,36 @@
         #getMoreBtn {
             background-color: coral;
         }
+
+        #leadFormWrapper {
+            width: 100%;
+        }
+
+        #innerFormWrap {
+            display: flex;
+            flex-flow: column;
+            text-align: center;
+            border: 5px solid #EE7229;
+            border-radius: 0.5em;
+            padding: 2em;
+        }
+
+        #formTop > h2 {
+            text-transform: uppercase;
+        }
+
+        #pageReloadBtn , .send-button {
+            width: 10em;
+            background-color: #EE7229;
+            height: 2.5em;
+            border-radius: 0.5em;
+            color: #fff;
+            font-size: 1.25em;
+        }
+
+        #pageReloadBtn:hover, send-button:hover {
+            background-color: coral;
+        }
     }
 
     @media screen and (max-width: 999px) {
@@ -295,11 +368,19 @@
             .result-box {
                 width: 100%;
             }
+
+            #innerFormWrap {
+                margin: 2em 5%;
+            }
         }
 
         @media screen and (min-width: 550px) {
             .result-box {
                 width: 50%;
+            }
+
+            #innerFormWrap {
+                margin: 2em 10%;
             }
         }
 
@@ -308,6 +389,10 @@
     @media screen and (min-width: 1000px) {
         .result-box {
             width: 25%;
+        }
+
+        #innerFormWrap {
+            margin: 2em 17%;
         }
     }
 

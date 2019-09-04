@@ -21,10 +21,10 @@ class BeeyaSearchGateway
         $payload = [
             'jobTitle' => $job,
             'location' => $location,
-            'radius_miles' => 25,
+            'radius_miles' => env('SEARCH_RADIUS', 25),
             'page' => $page,
-            'jobs_per_page' => 16,
-            'days_ago' => 30
+            'jobs_per_page' => env('MAX_PAGE_RESULTS', 16),
+            'days_ago' => env('MAX_AD_AGE', 21)
         ];
 
         $response = Curl::to($api_url)

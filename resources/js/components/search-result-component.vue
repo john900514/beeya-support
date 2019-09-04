@@ -24,6 +24,7 @@
         props: ['title','company','loc','url','img','boxno'],
         methods: {
             pickMee() {
+                console.log('Updating clicks.');
                 this.$parent.clickedPos = this.boxno;
                 this.$parent.updateClicks();
             }

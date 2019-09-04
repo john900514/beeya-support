@@ -26,6 +26,9 @@ class HomeController extends Controller
         $new_game = new GameSessions ($args);
         $new_game->save();
 
+        $args['game_rounds'] = env('GAME_ROUNDS', 3);
+        $args['reqd_clicks'] = env('REQD_CLICKS', 5);
+
         return view('home', $args);
     }
 }
