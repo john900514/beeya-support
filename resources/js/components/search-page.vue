@@ -5,7 +5,7 @@
         </div>
         <div id="searchResultsWrapper" v-show="totalRecords > 0">
             <div class="counter-wrapper">
-                <p>Now displaying {{ recordsRetrieved }} jobs out of {{ totalRecords }}</p>
+                <p>{{ resultsVerbiage }}</p>
             </div>
 
             <div class="results-section" v-for="(results, page) in searchResults">
@@ -15,18 +15,19 @@
                         :company="result.company"
                         :loc="result.location"
                         :url="result.jobUrl"
+                        :boxno="idx"
                     ></search-result-component>
                 </div>
             </div>
 
-            <div v-if="totalRecords > recordsRetrieved" class="result-ctrl-panel">
+            <div v-if="showResults" class="result-ctrl-panel">
                 <div class="ctrl-inner-wrap">
                     <div class="counter-wrapper">
-                        <p>Now displaying {{ recordsRetrieved }} jobs out of {{ totalRecords }}</p>
+
                     </div>
 
                     <div id="getMoreBtnWrap">
-                        <button id="getMoreBtn" type="button" @click="getSearchResults()">Get More Listings</button>
+                        <button id="getMoreBtn" type="button" @click="startNextRound()" v-show="getMoreResults">Get More Listings</button>
                     </div>
                 </div>
             </div>
@@ -35,17 +36,68 @@
 </template>
 
 <script>
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
+    // Init plugin
+    Vue.use(Loading);
+
     export default {
         name: "search-page",
+        props: ['gameid'],
+        watch: {
+            loading(flag) {
+                this.toggleLoader(flag);
+            },
+        },
         data() {
             return {
+                loading: false,
+                loader: '',
                 searchResults: [],
                 jobInput: '',
                 jobLocation: '',
                 totalRecords: 0,
                 recordsRetrieved: 0,
-                page: 1
+                page: 1,
+                round: 1,
+                showResults: false,
+                showMoreResultsBtn: false,
+                clicks: 0,
+                resultText: '',
+                clickedPos: '',
             };
+        },
+        computed: {
+            getMoreResults() {
+                if((this.round < 3) && (this.clicks === 5)) {
+                    this.showMoreResultsBtn = true;
+
+                    return true;
+                }
+
+                return false;
+            },
+            getRecNum() {
+                return this.recordsRetrieved;
+            },
+            resultsVerbiage() {
+                let results = '';
+                switch(this.round) {
+                    case 2:
+                        results = 'Here\'s your updated '+ this.getRecNum +' jobs';
+                        break;
+
+                    case 3:
+                        results = 'Last round! Showing '+ this.getRecNum +' more jobs! See anything you like?';
+                        break;
+
+                    default:
+                        results = 'Now displaying your '+ this.getRecNum +' jobs';
+                }
+
+                return  results;
+            }
         },
         methods: {
             startNewSearch() {
@@ -67,12 +119,21 @@
                     alert('What kind of job are you looking for?')
                 }
             },
+            startNextRound() {
+                this.clicks = 0;
+                this.searchResults = [];
+                this.recordsRetrieved = 0;
+                this.round++;
+                this.getSearchResults();
+            },
             setResults(results) {
                 this.searchResults.push(results);
                 console.log('Returned results - ' + results.length);
             },
             getSearchResults() {
                 let _this = this;
+                this.showResults = false;
+                this.loading = true;
 
                 let data = {
                     jobTitle: _this.jobInput,
@@ -93,6 +154,8 @@
                                 _this.setResults(data['results']['records']);
                                 _this.recordsRetrieved = _this.recordsRetrieved + data['results']['records'].length;
                                 _this.totalRecords = data['results']['total'];
+                                _this.showResults = true;
+                                _this.loading = false;
 
                             }
                             else {
@@ -110,9 +173,70 @@
                         console.log('Server error', e);
                     }
                 });
-            }
+            },
+            updateClicks() {
+                this.clicks++;
+                this.nowReallyUpdateClicks();
+            },
+            nowReallyUpdateClicks() {
+                // let _this = this;
+                let job = this.searchResults[0][this.clickedPos];
+
+                let data = {
+                    round: this.round,
+                    clickNo: this.clicks,
+                    gameid: this.gameid,
+                    job: this.jobInput,
+                    location: this.jobLocation,
+                    totalRecords: this.totalRecords,
+                    device: null,
+                    clickData: {
+                        sessionId: this.gameid,
+                        position: this.clickedPos,
+                        clickNo: this.clicks,
+                        sourceJobId: job.sourceJobId,
+                        jobName: job.jobName,
+                        company: job.company,
+                        jobTitle: job.jobTitle,
+                        round: this.round,
+                    }
+                };
+
+                $.ajax({
+                    url: '/api/clicks',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: data,
+                    success(data) {
+                        console.log(data)
+                    },
+                    error(e) {
+                        console.log(e)
+                    }
+                });
+            },
+            toggleLoader(flag) {
+                if(flag) {
+                    let _this = this;
+                    this.loader = this.$loading.show({
+                        // Optional parameters
+                        container: this.$refs.formContainer,
+                        canCancel: false,
+                        onCancel: this.onCancel,
+                        loader: 'dots',
+                        width: 175,
+                        height: 150,
+                        color: '#EE7229'
+                    });
+                }
+                else {
+                    this.loader.hide();
+                    this.loading = false
+                }
+            },
         },
         mounted() {
+            console.log('Game ID - '+ this.gameid);
             console.log('Search Page Mounted.')
         }
     }

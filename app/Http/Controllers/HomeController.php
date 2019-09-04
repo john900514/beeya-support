@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GameSessions;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,11 +14,17 @@ class HomeController extends Controller
         $this->request = $request;
     }
 
-    public function index()
+    public function index(GameSessions $sesh)
     {
-        $args = [];
+        $args = [
+            'visit_token' => csrf_token(),
+            'game_token' => bcrypt(csrf_token().strtotime('now')),
+            'ip' => $this->request->ip()
+        ];
 
-        // @todo - create a session in the DB
+        // create a session in the DB
+        $new_game = new GameSessions ($args);
+        $new_game->save();
 
         return view('home', $args);
     }

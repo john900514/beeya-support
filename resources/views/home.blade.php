@@ -73,7 +73,9 @@
     </div>
     <!-- Insert vueJS Component here -->
     <div id="mainContentSection">
-        <search-page></search-page>
+        <search-page
+            gameid="{!! $game_token !!}"
+        ></search-page>
     </div>
 </main>
 @endsection

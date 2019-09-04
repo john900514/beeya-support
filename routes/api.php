@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/beeya/results', 'API\SearchResultsController@get');
+Route::post('/clicks', 'API\SearchResultsController@update_clicks');

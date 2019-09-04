@@ -12,7 +12,7 @@
                 <p>{{ loc }}</p>
             </div>
             <div class="result-learn-more">
-                <a :href="url" target="_blank">LEARN MORE</a>
+                <a :href="url" target="_blank" @click="pickMee()">LEARN MORE</a>
             </div>
         </div>
     </div>
@@ -21,7 +21,13 @@
 <script>
     export default {
         name: "search-result-component",
-        props: ['title','company','loc','url','img'],
+        props: ['title','company','loc','url','img','boxno'],
+        methods: {
+            pickMee() {
+                this.$parent.clickedPos = this.boxno;
+                this.$parent.updateClicks();
+            }
+        },
         mounted() {
             console.log('A Search Result Block was mounted -'+ this.title);
         }

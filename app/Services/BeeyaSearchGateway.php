@@ -23,7 +23,7 @@ class BeeyaSearchGateway
             'location' => $location,
             'radius_miles' => 25,
             'page' => $page,
-            'jobs_per_page' => 8,
+            'jobs_per_page' => 16,
             'days_ago' => 30
         ];
 

@@ -9,7 +9,7 @@
             <input type="text" v-model="$parent.jobLocation" placeholder="ex. New York, NY">
         </div>
         <div class="search-ctrl-panel">
-            <button type="button" @click="$parent.startNewSearch()">
+            <button type="button" @click="$parent.startNewSearch()" :disabled="$parent.showResults" :style="($parent.showResults) ? 'background-color:gray;' : ''">
                 <i class="fal fa-search"></i>
                 <span>Search</span>
             </button>

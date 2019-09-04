@@ -9,7 +9,6 @@
     <meta property="og:url" content="{!! Request::url() !!}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @csrf
 
     <title>{!! env('APP_NAME') !!}</title>
     <link rel="shortcut icon" type="image/png" href="/img/favicon.png"/>
