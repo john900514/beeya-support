@@ -14,6 +14,22 @@
     <link rel="shortcut icon" type="image/png" href="/img/favicon.png"/>
 
     <!-- Fonts -->
+    <style>
+        @font-face {
+            font-family: 'Isidora Alt';
+            src: url('/css/IsidoraAlt/Isidora Alt W00 Black It.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Black.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Bold It.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Bold.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Light It.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Medium It.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Medium.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 SemiBold It.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 SemiBold.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Thin It.otf') format('otf'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Thin.otf') format('otf');
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 
@@ -33,14 +49,11 @@
         #app {
             display: flex;
             flex-flow: column;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Isidora Alt', sans-serif;
         }
 
     </style>
 
-    <!-- pixels -->
-
-    <!-- end pixels -->
     <script>
         function importLink(fileName) {
             let head  = document.getElementsByTagName('head')[0];
@@ -73,8 +86,9 @@
         }
     </script>
 
+    <!-- pixels -->
     @if(env('APP_ENV') == 'production')
-    <!-- Hotjar Tracking Code for https://beeya.capeandbay.com -->
+        <!-- Hotjar Tracking Code for https://beeya.capeandbay.com -->
         <script>
             (function(h,o,t,j,a,r){
                 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
@@ -86,6 +100,8 @@
             })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
         </script>
     @endif
+    <!-- end pixels -->
+
     @yield('extra-header-stuff')
 </head>
 <body>

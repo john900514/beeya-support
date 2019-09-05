@@ -69,7 +69,7 @@
 
     export default {
         name: "search-page",
-        props: ['gameid','gamerounds','reqclicks'],
+        props: ['gameid','gamerounds','reqclicks', 'fb'],
         watch: {
             loading(flag) {
                 this.toggleLoader(flag);
@@ -156,6 +156,12 @@
                         this.recordsRetrieved = 0;
                         this.page = 1;
                         this.neededClicks = this.reqclicks;
+
+                        if(this.fb === true) {
+                            console.log('Fb Search go!');
+                            fbq('track', 'Search');
+                        }
+
                         this.getSearchResults();
                     }
                     else {
@@ -251,6 +257,12 @@
             },
             updateClicks() {
                 this.clicks++;
+
+                if(this.fb === true) {
+                    console.log('Fb click go!')
+                    fbq('track', 'SubmitApplication');
+                }
+
                 this.nowReallyUpdateClicks();
             },
             nowReallyUpdateClicks() {

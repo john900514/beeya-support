@@ -56,6 +56,36 @@
 
         }
     </style>
+
+    @if(env('APP_ENV') == 'production')
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '563907877293963');
+            fbq('track', 'PageView');
+            console.log('Facebook pixel tracker enabled.');
+            let facebookPixel = true;
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none"
+                 src="https://www.facebook.com/tr?id=563907877293963&ev=PageView&noscript=1"
+            />
+        </noscript>
+        <!-- End Facebook Pixel Code -->
+
+    @else
+        <script>
+            console.log('Facebook pixel tracker disabled');
+            let facebookPixel = false;
+        </script>
+    @endif
 @endsection
 
 @section('content')
@@ -78,6 +108,7 @@
             gameid="{!! $game_token !!}"
             gamerounds="{!! $game_rounds !!}"
             reqclicks="{!! $reqd_clicks !!}"
+            fb="facebookPixel"
         ></search-page>
     </div>
 </main>
