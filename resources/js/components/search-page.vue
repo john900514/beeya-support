@@ -3,6 +3,7 @@
         <div id="searchWrapper">
             <search-component></search-component>
         </div>
+
         <div id="searchResultsWrapper" v-show="(!gameOver) && totalRecords > 0">
             <div class="counter-wrapper">
                 <p>{{ resultsVerbiage }}</p>
@@ -35,7 +36,7 @@
             <div id="innerFormWrap">
                 <div id="formTop">
                     <h2>{{ gameOverText }}</h2>
-                    <p>Sign up for our personalised news letter with more leads tailored just for you!</p>
+                    <p>Sign up for our personalised newsletter! Packed with more leads tailored just for you!</p>
                 </div>
 
                 <div id="formContent">
@@ -92,16 +93,28 @@
                 resultText: '',
                 clickedPos: '',
                 gameOver: false,
+                neededClicks: 0,
                 gameOverText: 'Ready to take your job search into overdrive?'
             };
         },
         computed: {
             getMoreResults() {
-                if((this.round < parseInt(this.gamerounds)) && (this.clicks >= parseInt(this.reqclicks))) {
-                    return true;
+                // if there are still rounds left AND we have met or exceeeded the min clicks
+                if((this.round < parseInt(this.gamerounds)) && (this.clicks >= parseInt(this.neededClicks))) {
+                    // if this is a shortened click round due to lack of results.
+                    if(parseInt(this.neededClicks) < parseInt(this.reqclicks)) {
+                        let _this = this;
+                        $('#searchResultsWrapper').fadeOut(function () {
+                            _this.gameOverText = 'Bummer, we ran out of results too early. Try Again?';
+                            _this.gameOver = true;
+                        });
+                    }
+                    else {
+                        return true;
+                    }
                 }
                 else {
-                    if((this.round === parseInt(this.gamerounds)) && (this.clicks === parseInt(this.reqclicks))) {
+                    if((this.round === parseInt(this.gamerounds)) && (this.clicks === parseInt(this.neededClicks))) {
                         let _this = this;
                         $('#searchResultsWrapper').fadeOut(function () {
                             _this.gameOver = true;
@@ -142,6 +155,7 @@
                         this.totalRecords = 0;
                         this.recordsRetrieved = 0;
                         this.page = 1;
+                        this.neededClicks = this.reqclicks;
                         this.getSearchResults();
                     }
                     else {
@@ -154,6 +168,7 @@
             },
             startNextRound() {
                 this.clicks = 0;
+                this.neededClicks = this.reqclicks;
                 this.searchResults = [];
                 this.recordsRetrieved = 0;
                 this.round++;
@@ -163,10 +178,27 @@
                 if(results !== null) {
                     this.searchResults.push(results);
                     console.log('Returned results - ' + results.length);
+
+                    if(results.length < this.reqclicks) {
+                        // The amount of results that came back from Beeya are less than the default required amount.
+                        console.log('Setting required clicks this round to ' + results.length);
+                        this.neededClicks = results.length;
+                    }
                 }
                 else {
-                    alert('No results. Try again?');
-                    this.loading = false;
+                    if(this.round === 1) {
+                        alert('No results. Try again?');
+                        this.loading = false;
+                    }
+                    else {
+                        this.loading = false;
+                        this.gameOverText = 'Oh no! We ran out of results...';
+                        let _this = this;
+                        $('#searchResultsWrapper').fadeOut(function () {
+                            _this.gameOver = true;
+                        });
+                    }
+
                 }
 
             },
@@ -191,8 +223,11 @@
                         {
                             if(data['success']) {
                                 _this.page++;
+
                                 _this.setResults(data['results']['records']);
-                                _this.recordsRetrieved = _this.recordsRetrieved + data['results']['records'].length;
+                                if(Array.isArray(data['results']['records'])) {
+                                    _this.recordsRetrieved = _this.recordsRetrieved + data['results']['records'].length;
+                                }
                                 _this.totalRecords = data['results']['total'];
                                 _this.showResults = true;
                                 _this.loading = false;
@@ -279,6 +314,7 @@
         mounted() {
             console.log('Game ID - '+ this.gameid);
 
+            this.neededClicks = this.reqclicks;
             console.log('This game requires the user to make '+this.reqclicks+' click(s) for '+this.gamerounds+' rounds.');
             console.log('Search Page Mounted.')
         }
@@ -349,7 +385,7 @@
             text-transform: uppercase;
         }
 
-        #pageReloadBtn , .send-button {
+        #pageReloadBtn {
             width: 10em;
             background-color: #EE7229;
             height: 2.5em;
@@ -358,7 +394,7 @@
             font-size: 1.25em;
         }
 
-        #pageReloadBtn:hover, send-button:hover {
+        #pageReloadBtn:hover {
             background-color: coral;
         }
     }

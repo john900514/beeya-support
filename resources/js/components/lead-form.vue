@@ -22,11 +22,14 @@
             <div id="checkerBox">
                 <input type="checkbox" name="optIn" value="true" id="checkboxOptin" v-model="consent"/>
                 <label for="optIn">
-                    <small>I hereby consent to receive phone, text and email messages from or on behalf of The Athletic Club at the telephone number and email provided. I understand that consent is not a condition of purchase.</small>
+                    <small>I hereby consent to receive phone, text and email messages from or on behalf of BEEYA.COM, INC at the telephone number and email provided. I understand that consent is not a condition of purchase.</small>
                 </label>
             </div>
 
-            <button type="button" class="send-button" @click="validateAndSubmit()">SIGN ME UP!</button>
+            <button type="button" class="send-button" @click="validateAndSubmit()">
+                <i class="fal fa-mailbox"></i>
+                <span>SIGN ME UP!</span>
+            </button>
         </div>
     </div>
 </template>
@@ -154,11 +157,59 @@
         margin: 1em 1%;
     }
 
-    #checkerBox, .c-form-elem {
+    #checkerBox {
+        margin: 1em 15%;
+        max-width: 70%;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #checkboxOptin {
+        transform: scale(2);
+        margin-right: 1em;
+    }
+
+    .c-form-elem {
         margin: 1em 0;
+        width: 100%;
     }
 
     .c-form-elem > input {
-        width: 100%;
+        height: 3em;
+        font-size: 1.1em;
+        border: 3px solid gray;
+        border-radius: 0.25em;
+    }
+
+    .send-button {
+        width: 10em;
+        background-color: #EE7229;
+        height: 2.5em;
+        border-radius: 0.5em;
+        color: #fff;
+        font-size: 1.25em;
+    }
+
+    .send-button:hover {
+        background-color: coral;
+    }
+
+    @media screen and (max-width: 999px) {
+
+        .c-form-elem > input {
+            width: 90%;
+            padding-left: 1em;
+        }
+    }
+
+    @media screen and (min-width: 1000px) {
+        .c-form-elem > input {
+            max-width: 70%;
+            width: 100%;
+            padding: 0 1em;
+        }
     }
 </style>
