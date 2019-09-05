@@ -130,16 +130,16 @@
             resultsVerbiage() {
                 let results = '';
                 switch(this.round) {
-                    case 2:
-                        results = 'Here\'s your updated '+ this.getRecNum +' jobs';
+                    case 1:
+                        results = 'Choosing at least '+ this.neededClicks +' jobs will train your algorithm and allow us to show you more jobs instantly!';
                         break;
 
                     case 3:
-                        results = 'Last round! Showing '+ this.getRecNum +' more jobs! See anything you like?';
+                        results = 'Choose at least '+ this.neededClicks +' more jobs! See anything you like?';
                         break;
 
                     default:
-                        results = 'Now displaying your '+ this.getRecNum +' jobs';
+                        results = 'Now displaying '+ this.getRecNum +' more jobs! If you like them all, choose them all!';
                 }
 
                 return  results;
