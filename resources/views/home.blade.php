@@ -79,7 +79,6 @@
             />
         </noscript>
         <!-- End Facebook Pixel Code -->
-
     @else
         <script>
             console.log('Facebook pixel tracker disabled');
@@ -108,7 +107,6 @@
             gameid="{!! $game_token !!}"
             gamerounds="{!! $game_rounds !!}"
             reqclicks="{!! $reqd_clicks !!}"
-            fb="facebookPixel"
         ></search-page>
     </div>
 </main>

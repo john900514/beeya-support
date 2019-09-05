@@ -69,7 +69,7 @@
 
     export default {
         name: "search-page",
-        props: ['gameid','gamerounds','reqclicks', 'fb'],
+        props: ['gameid','gamerounds','reqclicks'],
         watch: {
             loading(flag) {
                 this.toggleLoader(flag);
@@ -77,6 +77,7 @@
         },
         data() {
             return {
+                fb: false,
                 loading: false,
                 loader: '',
                 searchResults: [],
@@ -157,7 +158,8 @@
                         this.page = 1;
                         this.neededClicks = this.reqclicks;
 
-                        if(this.fb === true) {
+
+                        if(this.fb !== false) {
                             console.log('Fb Search go!');
                             fbq('track', 'Search');
                         }
@@ -258,8 +260,8 @@
             updateClicks() {
                 this.clicks++;
 
-                if(this.fb === true) {
-                    console.log('Fb click go!')
+                if(this.fb !== false) {
+                    console.log('Fb click go!');
                     fbq('track', 'SubmitApplication');
                 }
 
@@ -328,6 +330,11 @@
 
             this.neededClicks = this.reqclicks;
             console.log('This game requires the user to make '+this.reqclicks+' click(s) for '+this.gamerounds+' rounds.');
+
+            console.log('Fb Status ', facebookPixel);
+            if(facebookPixel) {
+                this.fb = facebookPixel;
+            }
             console.log('Search Page Mounted.')
         }
     }
