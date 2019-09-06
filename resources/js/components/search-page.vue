@@ -36,7 +36,7 @@
             <div id="innerFormWrap">
                 <div id="formTop">
                     <h2>{{ gameOverText }}</h2>
-                    <p>Sign up for our personalised newsletter! Packed with more leads tailored just for you!</p>
+                    <p>Sign up to Receive More Tailored Jobs Each Day!</p>
                 </div>
 
                 <div id="formContent">
@@ -95,7 +95,7 @@
                 clickedPos: '',
                 gameOver: false,
                 neededClicks: 0,
-                gameOverText: 'Ready to take your job search into overdrive?'
+                gameOverText: 'Congratulations! You\'ve Unlocked Additional Functionality.'
             };
         },
         computed: {
@@ -362,7 +362,7 @@
         }
 
         .result-box {
-            height: 17.5em;
+            height: 19.5em;
         }
 
         .result-ctrl-panel {
