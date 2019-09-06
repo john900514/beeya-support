@@ -4,6 +4,9 @@
             <div class="results-wrap">
                 <div class="result-image">
                     <img src="/img/favicon.png" />
+                    <div class="partner-job-banner">
+                        <p>PARTNER JOBS</p>
+                    </div>
                 </div>
                 <div class="result-title">
                     <p><b>{{ title }}</b></p>
@@ -64,6 +67,12 @@
         flex-flow: column;
     }
 
+    .result-image {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 50% 50%;
+    }
+
     .result-title {
         height: 3.0em;
         overflow: hidden;
@@ -96,5 +105,16 @@
 
     .result-learn-more > a:hover {
         color: coral;
+    }
+
+    .partner-job-banner > p {
+        background-color: #EE7229;
+        padding: 0.35em 0 0.35em 1em;
+        width: 100%;
+        color: #fff;
+        font-weight: 600;
+        border-top-left-radius: .25em;
+        border-bottom-left-radius: .25em;
+        box-shadow: 0 1px 2px 0.5px peachpuff;
     }
 </style>
