@@ -196,6 +196,7 @@
                 else {
                     if(this.round === 1) {
                         alert('No results. Try again?');
+                        this.showResults = false;
                         this.loading = false;
                     }
                     else {
@@ -232,17 +233,21 @@
                             if(data['success']) {
                                 _this.page++;
 
+                                _this.showResults = true;
                                 _this.setResults(data['results']['records']);
                                 if(Array.isArray(data['results']['records'])) {
                                     _this.recordsRetrieved = _this.recordsRetrieved + data['results']['records'].length;
                                 }
                                 _this.totalRecords = data['results']['total'];
-                                _this.showResults = true;
                                 _this.loading = false;
 
                             }
                             else {
                                 alert(data['reason']);
+
+                                if(_this.round === 1) {
+                                    _this.showResults = false;
+                                }
                             }
                         }
                         else
