@@ -22,7 +22,7 @@
             width: 100%;
             height: 100%;
 
-            border-bottom: 3px solid gray;
+           /* border-bottom: 3px solid gray;*/
         }
 
         #innerBanner {
@@ -58,6 +58,11 @@
                 width: 50%;
             }
 
+        }
+    </style>
+    <style>
+        footer {
+            display: none;
         }
     </style>
 

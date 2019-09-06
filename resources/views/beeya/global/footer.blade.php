@@ -49,7 +49,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="flex-row">
-                <div class="right"><span class="copyright">Copyright © 2018 - BEEYA</span></div>
+                <div class="right"><span class="copyright">Copyright © 2019 - BEEYA</span></div>
                 <!-- ./ copyright -->
             </div>
         </div>
