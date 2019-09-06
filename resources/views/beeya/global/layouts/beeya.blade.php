@@ -17,17 +17,17 @@
     <style>
         @font-face {
             font-family: 'Isidora Alt';
-            src: url('/css/IsidoraAlt/Isidora Alt W00 Black It.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 Black.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 Bold It.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 Bold.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 Light It.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 Medium It.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 Medium.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 SemiBold It.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 SemiBold.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 Thin It.otf') format('otf'),
-            url('/css/IsidoraAlt/Isidora Alt W00 Thin.otf') format('otf');
+            src: url('/css/IsidoraAlt/Isidora Alt W00 Black It.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Black.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Bold It.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Bold.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Light It.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Medium It.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Medium.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 SemiBold It.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 SemiBold.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Thin It.otf') format('opentype'),
+            url('/css/IsidoraAlt/Isidora Alt W00 Thin.otf') format('opentype');
         }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
         #app {
             display: flex;
             flex-flow: column;
-            font-family: 'Isidora Alt', sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
 
     </style>

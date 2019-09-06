@@ -39,6 +39,10 @@
             line-height: 2em;
         }
 
+        .beeya-font {
+            font-family: 'Isidora Alt', sans-serif;
+        }
+
         @media screen and (max-width: 999px) {
             #bannerSection {
                 margin-top: 1em;
@@ -92,7 +96,7 @@
     <div id="bannerSection">
         <div id="innerBanner">
             <div id="verbiageSection">
-                <h2>Be it, with Beeya</h2>
+                <h2>Be it, with <span class="beeya-font">Beeya</span></h2>
                 <p>Our world class algorithm learns your job preferences and
                     combs through 11 million jobs to apply for. Get started
                     now by training your algorithm.
