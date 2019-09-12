@@ -102,9 +102,18 @@
         <div id="innerBanner">
             <div id="verbiageSection">
                 <h2>Be it, with <span class="beeya-font">Beeya</span></h2>
-                <p>Our world class algorithm learns your job preferences and
-                    combs through 11 million jobs to apply for. Get started
-                    now by training your algorithm.
+                <p>Beeya is the only job search site that uses AI to match you with
+                    jobs that you have the best chance at landing, for free. Our world
+                    class algorithm learns your job preferences and combs through
+                    11 million jobs to apply for. Get started now by training your
+                    algorithm. Here's how it works:
+                    <br />
+                    <b>Step 1: Search for the job you want</b>
+                    <br />
+                    <b>Step 2: Apply to the jobs you like. Our AI will learn your job
+                        preferences and show you 10 more jobs.</b>
+                    <br />
+                    <b>Step 3: Repeat. Beeya is free forever for job searchers.</b>
                 </p>
             </div>
         </div>

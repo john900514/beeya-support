@@ -13,6 +13,7 @@
                         <i class="fal fa-inbox"></i>
                         <span><a href="https://beeya.com/blogs" >Blogs</a></span>
                     </div>
+                    <!--
                     <div class="head-link  beeya-orange">
                         <i class="fal fa-id-card-alt"></i>
                         <span><a href="https://beeya.com">Profile</a></span>
@@ -21,6 +22,7 @@
                         <i class="fal fa-binoculars"></i>
                         <span><a href="https://beeya.capeandbay.com">Search</a></span>
                     </div>
+                    -->
                 </div>
             </div>
         </div>
