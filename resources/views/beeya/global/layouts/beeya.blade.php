@@ -40,6 +40,8 @@
     @include('beeya.global.css.header')
 
     <style>
+        html { height: 100%; overflow:auto; }
+
         body {
             height: 100%;
             width: 100%;

@@ -149,7 +149,7 @@
 
     @media screen and (max-width: 999px) {
         .footer-bottom {
-            margin: 3em 0;
+            margin: 1em 0;
 
         }
     }

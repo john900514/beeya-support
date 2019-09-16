@@ -137,7 +137,7 @@
                 #searchComponentSection {
                     display: flex;
                     flex-flow: column;
-                    margin: 4em 0;
+                    margin: 0;
                 }
 
                 .search-wrapper {

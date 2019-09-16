@@ -4,7 +4,7 @@
             <search-component></search-component>
         </div>
 
-        <div id="searchResultsWrapper" v-show="(!gameOver) && totalRecords > 0">
+        <div id="searchResultsWrapper" v-show="toggleSearchResults">
             <div class="counter-wrapper">
                 <p>{{ resultsVerbiage }}</p>
             </div>
@@ -73,6 +73,21 @@
         watch: {
             loading(flag) {
                 this.toggleLoader(flag);
+            },
+            toggleSearchResults(flag) {
+                if(flag) {
+                    setTimeout(function () {
+                        console.log('Gonna try to scroll');
+                        if(md.phone()) {
+                            $('#mainContentSection').animate({ scrollTop: 500 }, 1500)
+                        }
+                        else {
+                            $('html').animate({ scrollTop: 750 }, 1500)
+                        }
+
+
+                    }, 500);
+                }
             }
         },
         data() {
@@ -111,6 +126,7 @@
                         });
                     }
                     else {
+
                         return true;
                     }
                 }
@@ -144,7 +160,13 @@
                 }
 
                 return  results;
-            }
+            },
+            toggleSearchResults() {
+                let res = ((!this.gameOver) && this.totalRecords > 0);
+
+                return res;
+
+            },
         },
         methods: {
             startNewSearch() {
@@ -234,13 +256,12 @@
                                 _this.page++;
 
                                 _this.showResults = true;
+                                _this.loading = false;
                                 _this.setResults(data['results']['records']);
                                 if(Array.isArray(data['results']['records'])) {
                                     _this.recordsRetrieved = _this.recordsRetrieved + data['results']['records'].length;
                                 }
                                 _this.totalRecords = data['results']['total'];
-                                _this.loading = false;
-
                             }
                             else {
                                 alert(data['reason']);
