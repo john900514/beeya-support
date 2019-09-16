@@ -3,6 +3,367 @@
 @section('extra-header-stuff')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.7.16/libphonenumber-js.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @tablet
+        <style>
+            @media screen {
+                .beeya-font {
+                    font-family: 'Isidora Alt', sans-serif;
+                }
+
+                .beeya-orange {
+                    color: #EE7229 !important;
+                }
+
+                main {
+                    width: 100%;
+                    height: 100%;
+
+                    display: flex;
+                    flex-flow: column;
+                }
+
+                #bannerSection {
+                    border-top: 3px solid transparent;
+                    border-bottom: 3px solid transparent;
+                }
+
+                #centeredCopy > p {
+                    color: gray;
+                    font-weight: 400;
+                }
+
+                #rulesSection {
+                    width: 100%;
+                }
+
+                #rulesHeader {
+                    color: gray;
+                    font-weight: 300;
+                }
+
+                .number-circle {
+                    border-radius: 50%;
+                    width: 1.1em;
+                    height: 1.1em;
+                    padding: 2px;
+                    background: #fff;
+                    border: 3px solid #EE7229;
+                    text-align: center;
+                    font-size: 1.1em;
+                    font-weight: 600;
+                }
+
+                #rulesActualSegment {
+                    width: 100%;
+                }
+
+                #mainContentSection {
+                    width: 100%;
+                    height: 100%;
+
+                    border-top: 3px solid transparent;
+                    border-bottom: 3px solid transparent;
+                }
+            }
+
+            @media screen and (max-width: 999px) {
+                #bannerSection {
+                    padding-top: 3em;
+                }
+
+                #innerBanner {
+                    display: grid;
+                    grid-template-columns: 50% 50%;
+                    grid-template-rows: auto;
+                }
+
+                #verbiageSection {
+                    display: flex;
+                    flex-flow: column;
+                }
+
+                .silly-right-margin {
+                    margin-right: 15%;
+                }
+
+                #bigFrickenLogoWrapper {
+                    width: 100%;
+                }
+
+                #bigFrickenLogoContainer {
+                    width: 100%;
+                }
+
+                #bigFrickenLogo {
+                    width: 100%;
+                    height: auto;
+                }
+
+                #centeredCopySegment.silly-right-margin {
+                    margin-right: 12.5%;
+                }
+
+                #centeredCopyWrapper {
+                    margin-left: 27.5%;
+                }
+
+                #centeredCopy > p {
+                    font-size: 1em;
+                    line-height: 1.95em;
+                    font-weight: 400;
+                }
+
+                #rulesContainer {
+                    display: flex;
+                    flex-flow: column;
+                }
+
+                #rulesActualSegment {
+                    width: 100%;
+                }
+
+                #rulesHeader {
+                    font-size: 1.75em;
+                }
+
+                #rulesHeaderWrapper {
+                    margin-left: 1em;
+                    margin-right: 5%;
+                }
+
+                #rulesActualWrapper {
+                    margin: 2em 1em;
+                }
+
+                #rulesActualContainer {
+                    margin-right: 1em;
+                }
+
+                .rules-actual-paragraph {
+                    height: auto;
+                }
+
+                .rule-actual {
+                    display: grid;
+                    grid-template-columns: 10% 90%;
+                    margin: 1em 0 2em 0;
+                }
+
+                .rule-actual > p {
+                    font-size: 1.35em;
+                    line-height: 1.25em;
+                    margin: 0 0 0 0.75em;
+                }
+
+                #searchComponentSection {
+                    display: flex;
+                    flex-flow: column;
+                }
+
+                .search-wrapper {
+                    width: 100%;
+                    margin: 0.1em 0;
+                }
+
+                .search-input {
+                    display:flex;
+                    flex-flow: column;
+                    margin: 1em 12%;
+                }
+
+                .search-input > label {
+                    margin-bottom: 0.75em;
+                    color: #787878;
+                    font-weight: 600;
+                    font-size: 1.1em;
+                }
+
+                .search-input > label > span {
+                    margin-left: 0.5em;
+                }
+
+                .search-input > input {
+                    border-radius: 0.25em;
+                    height: 3em;
+                    background-color: #F5F5F5;
+                    border-color: transparent;
+                    font-size: 1em;
+                    padding-left: 1em;
+                }
+
+                ::placeholder {
+                    color: #909090;
+                }
+
+
+                .search-ctrl-panel {
+                    margin-left: 1em;
+                    margin-top: 1.9em;
+                }
+
+                .search-ctrl-panel > button {
+                    width: 12em;
+                    background-color: #EE7229;
+                    height: 3em;
+                    border-radius: 0.25em;
+                    color: #fff;
+                    font-size: 1.15em;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+
+                .search-ctrl-panel > button > i {
+                    font-weight: bold;
+                }
+
+                .search-ctrl-panel > button:hover {
+                    background-color: coral;
+                }
+            }
+
+            @media screen and (min-width: 1000px) {
+                main {
+                    display: grid;
+                    grid-template-columns: 15em auto;
+                    grid-template-rows: auto;
+                }
+
+                #bannerSection {
+                    width: 100%;
+                    height: auto;
+                    max-height: 35em;
+                    overflow-x: scroll;
+                }
+
+                #innerBanner {
+                    overflow-x: scroll;
+                }
+
+                #verbiageSection {
+                    display: flex;
+                    flex-flow: column;
+                }
+
+                #centeredCopyWrapper {
+                    margin-left: 10%;
+                    margin-right: 5%;
+                }
+
+                #centeredCopy > p {
+                    font-size: 0.9em;
+                    line-height: 1.5em;
+                }
+
+                #rulesSection {
+                    width: 100%;
+                }
+
+                #rulesSegment {
+                    margin: 2em 0 3em 0;
+                }
+
+                #rulesWrapper {
+                    margin-left: 10%;
+                    margin-right: 5%;
+                }
+
+                #rulesHeader {
+                    font-size: 1.75em;
+                }
+
+                .rule-actual {
+                    display: grid;
+                    grid-template-columns: 15% 85%;
+                    margin: 1em 0 2em 0;
+                }
+
+                .number-circle {
+                    margin-top: 0.25em;
+                }
+
+                .rule-actual > p {
+                    font-size: 1.15em;
+                    line-height: 1.5em;
+                    margin: 0 1em;
+                }
+
+                #mainContentSection {
+                    width: 100%;
+                    height: 100%;
+                    max-height: 35em;
+                    overflow-x: scroll;
+                }
+
+                #searchComponentSection {
+                    display: flex;
+                    flex-flow: column;
+                    margin: 4em 0;
+                }
+
+                .search-wrapper {
+                    width: 100%;
+                    margin: 0.1em 0;
+                }
+
+                .search-input {
+                    display:flex;
+                    flex-flow: column;
+                    margin: 1em 12%;
+                }
+
+                .search-input > label {
+                    margin-bottom: 0.75em;
+                    color: #787878;
+                    font-weight: 600;
+                    font-size: 1.1em;
+                }
+
+                .search-input > label > span {
+                    margin-left: 0.5em;
+                }
+
+                .search-input > input {
+                    border-radius: 0.25em;
+                    height: 3em;
+                    background-color: #F5F5F5;
+                    border-color: transparent;
+                    font-size: 1em;
+                    padding-left: 1em;
+                }
+
+                ::placeholder {
+                    color: #909090;
+                }
+
+
+                .search-ctrl-panel {
+                    margin-left: 1em;
+                    margin-top: 1.9em;
+                    text-align: center;
+                }
+
+                .search-ctrl-panel > button {
+                    width: 12em;
+                    background-color: #EE7229;
+                    height: 3em;
+                    border-radius: 0.25em;
+                    color: #fff;
+                    font-size: 1.15em;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+
+                .search-ctrl-panel > button > i {
+                    font-weight: bold;
+                }
+
+                .search-ctrl-panel > button:hover {
+                    background-color: coral;
+                }
+
+            }
+        </style>
+    @elsenottablet
     <style>
         /* Globals */
         @media screen {
@@ -332,7 +693,6 @@
                         line-height: 1.25em;
                         margin: 0 0 0 0.75em;
                     }
-
                 }
 
                 @media screen and (orientation: landscape) {
@@ -503,7 +863,88 @@
                 margin: 0;
             }
         }
+        @media screen and (min-width: 1000px) {
+            #searchComponentSection {
+                display: grid;
+                grid-template-columns: 42.5% 57.5%;
+                grid-template-rows: auto;
+            }
+
+            .search-wrapper {
+                width: 100%;
+                margin: 0.1em 0;
+            }
+
+            .without-button .search-box {
+                margin-left: 22.5%;
+                margin-bottom: 1.5em;
+                margin-top: 0.5em;
+            }
+
+            .with-button .search-box {
+                display: flex;
+                flex-flow: row;
+                margin: 0.5em 16.5% 2.5% 2.5%;
+            }
+
+            .search-input {
+                display:flex;
+                flex-flow: column;
+                width: 100%;
+            }
+
+            .search-input > label {
+                margin-bottom: 0.75em;
+                color: #787878;
+                font-weight: 600;
+                font-size: 1.1em;
+            }
+
+            .search-input > label > span {
+                margin-left: 0.5em;
+            }
+
+            .search-input > input {
+                border-radius: 0.25em;
+                height: 3em;
+                background-color: #F5F5F5;
+                border-color: transparent;
+                font-size: 1em;
+                padding-left: 1em;
+            }
+
+            ::placeholder {
+                color: #909090;
+            }
+
+
+            .search-ctrl-panel {
+                margin-left: 1em;
+                margin-top: 1.9em;
+            }
+
+            .search-ctrl-panel > button {
+                width: 12em;
+                background-color: #EE7229;
+                height: 3em;
+                border-radius: 0.25em;
+                color: #fff;
+                font-size: 1.15em;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .search-ctrl-panel > button > i {
+                font-weight: bold;
+            }
+
+            .search-ctrl-panel > button:hover {
+                background-color: coral;
+            }
+        }
     </style>
+    @endtablet
+
 
     @if(env('APP_ENV') == 'production')
         <!-- Facebook Pixel Code -->

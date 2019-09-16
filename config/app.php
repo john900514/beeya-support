@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Riverskies\Laravel\MobileDetect\MobileDetectServiceProvider::class,
         /*
          * Application Service Providers...
          */

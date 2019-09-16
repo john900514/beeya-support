@@ -135,11 +135,6 @@
             text-align: center;
         }
 
-        .footer-bottom {
-            margin: 7em 0;
-
-        }
-
         .footer-bottom .container, .footer-top .container {
             padding: 0.5em 1.75em;
         }
@@ -152,9 +147,16 @@
 
     }
 
-    @media screen and (max-width: 999px) {  }
+    @media screen and (max-width: 999px) {
+        .footer-bottom {
+            margin: 3em 0;
 
+        }
+    }
     @media screen and (min-width: 1000px) {
+        .footer-bottom {
+            margin: 4em 0;
 
+        }
     }
 </style>
