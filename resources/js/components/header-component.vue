@@ -3,17 +3,19 @@
         <div class="nav-bar">
             <div class="head-wrap">
                 <div class="head-logo">
+                    <!--
                     <img src="https://beeya-web-assets.s3.amazonaws.com/Beeya_Logo-Orange_Beeya-Logo.jpg" />
                     <div class="burger-wrapper mobile-only">
                         <button type="button" @click="toggleNavBar()"><i class="far fa-bars beeya-orange"></i></button>
                     </div>
+                    -->
                 </div>
                 <div class="head-links" :class="getLinksStyle">
+                    <!--
                     <div class="head-link  beeya-orange">
                         <i class="fal fa-inbox"></i>
                         <span><a href="https://beeya.com/blogs" >Blogs</a></span>
                     </div>
-                    <!--
                     <div class="head-link  beeya-orange">
                         <i class="fal fa-id-card-alt"></i>
                         <span><a href="https://beeya.com">Profile</a></span>

@@ -346,15 +346,8 @@
 </script>
 
 <style scoped>
+    /* Globals */
     @media screen {
-        .template-wrapper {
-            margin: 0 3em;
-        }
-
-        #searchWrapper {
-            margin: 2em 1em;
-        }
-
         .results-section {
             display: flex;
             flex-flow: row wrap;
@@ -423,7 +416,9 @@
         }
     }
 
+    /* Mobiles */
     @media screen and (max-width: 999px) {
+        /* Special PITAs */
         @media screen and (max-width: 549px) {
             .result-box {
                 width: 100%;
@@ -444,8 +439,29 @@
             }
         }
 
-    }
+        /* Phones */
+        @media screen and (max-width: 767px) {
+            @media screen and (orientation: portrait) {
 
+            }
+
+            @media screen and (orientation: landscape) {
+
+            }
+        }
+
+        /* Tablets */
+        @media screen and (min-width: 768px) {
+            @media screen and (orientation: portrait) {
+
+            }
+
+            @media screen and (orientation: landscape) {
+
+            }
+        }
+    }
+    /* Desktops/Large Screens */
     @media screen and (min-width: 1000px) {
         .result-box {
             width: 25%;

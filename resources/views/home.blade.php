@@ -4,65 +4,504 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.7.16/libphonenumber-js.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <style>
-        main {
-            width: 100%;
-            height: 100%;
+        /* Globals */
+        @media screen {
+            .beeya-font {
+                font-family: 'Isidora Alt', sans-serif;
+            }
 
-            display: flex;
-            flex-flow: column;
-        }
+            .beeya-orange {
+                color: #EE7229 !important;
+            }
 
-        #bannerSection {
-            background-color: lightgrey;
-            border-top: 3px solid gray;
-            border-bottom: 3px solid gray;
-        }
+            main {
+                width: 100%;
+                height: 100%;
 
-        #mainContentSection {
-            width: 100%;
-            height: 100%;
+                display: flex;
+                flex-flow: column;
+            }
 
-           /* border-bottom: 3px solid gray;*/
-        }
-
-        #innerBanner {
-            margin: 3em 5%
-        }
-        #verbiageSection > h2 {
-            color: navy;
-        }
-
-        #verbiageSection > p {
-            font-size: 1.2em;
-            color: gray;
-            word-spacing: 0.5em;
-            line-height: 2em;
-        }
-
-        .beeya-font {
-            font-family: 'Isidora Alt', sans-serif;
-        }
-
-        @media screen and (max-width: 999px) {
             #bannerSection {
-                margin-top: 1em;
+                border-top: 3px solid transparent;
+                border-bottom: 3px solid transparent;
+            }
+
+            #centeredCopy > p {
+                color: gray;
+                font-weight: 400;
+            }
+
+            #rulesSection {
+                width: 100%;
+            }
+
+            #rulesHeader {
+                color: gray;
+                font-weight: 300;
+            }
+
+            .number-circle {
+                border-radius: 50%;
+                width: 1.1em;
+                height: 1.1em;
+                padding: 2px;
+                background: #fff;
+                border: 3px solid #EE7229;
+                text-align: center;
+                font-size: 1.1em;
+                font-weight: 600;
+            }
+
+            #rulesActualSegment {
+                width: 100%;
+            }
+
+            #mainContentSection {
+                width: 100%;
+                height: 100%;
+
+                border-top: 3px solid transparent;
+                border-bottom: 3px solid transparent;
+            }
+        }
+
+        /* Mobiles */
+        @media screen and (max-width: 999px) {
+            /* Phones */
+            @media screen and (max-width: 767px) {
+                header {
+                    display: none;
+                }
+
+                @media screen and (orientation: portrait) {
+                    #bannerSection {
+                        padding-top: 1em;
+                    }
+
+                    #innerBanner {
+                        display: flex;
+                        flex-flow: column;
+                    }
+
+                    #verbiageSection {
+                        display: flex;
+                        flex-flow: column;
+
+                        text-align: center;
+                    }
+
+                    #bigFrickenLogoSegment {
+                        width:100%;
+                    }
+
+                    #bigFrickenLogoWrapper {
+                        margin: 0 25%;
+                    }
+
+                    #bigFrickenLogoContainer {
+                        width: 100%;
+                    }
+
+                    #bigFrickenLogo {
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    #centeredCopyWrapper {
+                        margin: 0 15%;
+                    }
+
+                    #centeredCopy > p {
+                        font-size: 1.1em;
+                        line-height: 1.5em;
+                    }
+
+                    #rulesSection {
+                        width: 100%;
+                    }
+
+                    #rulesSegment {
+                        margin: 1em 0 3em 0;
+                    }
+
+                    #rulesWrapper {
+                        margin: 0 10%
+                    }
+
+                    #rulesContainer {
+                        display: flex;
+                        flex-flow: column;
+                    }
+
+                    #rulesHeaderSegment {
+                        text-align: center;
+                    }
+
+                    #rulesActualSegment {
+                        width: 100%;
+                    }
+
+                    #rulesActualWrapper {
+                        width: 100%;
+                    }
+
+                    #rulesActualContainer {
+                        text-align: center;
+                        margin: 1.5em 0;
+                    }
+
+                    .rules-actual-paragraph {
+                        margin-bottom: 2em;
+                    }
+
+                    .number-circle {
+                        margin: 0 auto;
+                    }
+
+                    .rule-actual > p {
+                        margin-top: 0.5em;
+                        font-size: 1.25em;
+                        line-height: 1.5em;
+                    }
+                }
+
+                @media screen and (orientation: landscape) {
+                    main {
+                        display: grid;
+                        grid-template-columns: 35% 65%;
+                        grid-template-rows: auto;
+                    }
+
+                    #bannerSection {
+                        width: 100%;
+                        height: auto;
+                        max-height: 30em;
+                        overflow-x: scroll;
+                    }
+
+                    #innerBanner {
+                        display: flex;
+                        flex-flow: column;
+                    }
+
+                    #verbiageSection {
+                        display: flex;
+                        flex-flow: column;
+                    }
+
+                    #centeredCopyWrapper {
+                        margin-left: 10%;
+                        margin-right: 5%;
+                    }
+
+                    #centeredCopy > p {
+                        font-size: 0.75em;
+                        line-height: 1.5em;
+                    }
+
+                    #rulesSection {
+                        width: 100%;
+                    }
+
+                    #rulesSegment {
+                        margin: 2em 0;
+                    }
+
+                    #rulesWrapper {
+                        margin-left: 10%;
+                        margin-right: 5%;
+                    }
+
+                    #rulesHeader {
+                        font-size: 1.75em;
+                    }
+
+                    .rule-actual {
+                        display: grid;
+                        grid-template-columns: 15% 85%;
+                        margin: 1em 0 2em 0;
+                    }
+
+                    .number-circle {
+                        margin-top: 0.25em;
+                    }
+
+                    .rule-actual > p {
+                        font-size: 1em;
+                        line-height: 1.5em;
+                        margin: 0 1em;
+                    }
+
+                    #mainContentSection {
+                        width: 100%;
+                        height: auto;
+                        max-height: 30em;
+                        overflow-x: scroll;
+                    }
+                }
+            }
+
+            /* Tablets */
+            @media screen and (min-width: 768px) {
+                @media screen and (orientation: portrait) {
+                    #bannerSection {
+                        padding-top: 3em;
+                    }
+
+                    #innerBanner {
+                        display: grid;
+                        grid-template-columns: 50% 50%;
+                        grid-template-rows: auto;
+                    }
+
+                    #verbiageSection {
+                        display: flex;
+                        flex-flow: column;
+                    }
+
+                    .silly-right-margin {
+                        margin-right: 15%;
+                    }
+
+                    #bigFrickenLogoWrapper {
+                        width: 100%;
+                    }
+
+                    #bigFrickenLogoContainer {
+                        width: 100%;
+                    }
+
+                    #bigFrickenLogo {
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    #centeredCopySegment.silly-right-margin {
+                        margin-right: 12.5%;
+                    }
+
+                    #centeredCopyWrapper {
+                        margin-left: 27.5%;
+                    }
+
+                    #centeredCopy > p {
+                        font-size: 1em;
+                        line-height: 1.95em;
+                        font-weight: 400;
+                    }
+
+                    #rulesContainer {
+                        display: flex;
+                        flex-flow: column;
+                    }
+
+                    #rulesActualSegment {
+                        width: 100%;
+                    }
+
+                    #rulesHeader {
+                        font-size: 1.75em;
+                    }
+
+                    #rulesHeaderWrapper {
+                        margin-left: 1em;
+                        margin-right: 5%;
+                    }
+
+                    #rulesActualWrapper {
+                        margin: 2em 1em;
+                    }
+
+                    #rulesActualContainer {
+                        margin-right: 1em;
+                    }
+
+                    .rules-actual-paragraph {
+                        height: auto;
+                    }
+
+                    .rule-actual {
+                        display: grid;
+                        grid-template-columns: 10% 90%;
+                        margin: 1em 0 2em 0;
+                    }
+
+                    .rule-actual > p {
+                        font-size: 1.35em;
+                        line-height: 1.25em;
+                        margin: 0 0 0 0.75em;
+                    }
+
+                }
+
+                @media screen and (orientation: landscape) {
+                    main {
+                        display: grid;
+                        grid-template-columns: 30% 70%;
+                        grid-template-rows: auto;
+                    }
+
+                    #bannerSection {
+                        width: 100%;
+                        height: auto;
+                        max-height: 35em;
+                        overflow-x: scroll;
+                    }
+
+                    #innerBanner {
+                        overflow-x: scroll;
+                    }
+
+                    #verbiageSection {
+                        display: flex;
+                        flex-flow: column;
+                    }
+
+                    #centeredCopyWrapper {
+                        margin-left: 10%;
+                        margin-right: 5%;
+                    }
+
+                    #centeredCopy > p {
+                        font-size: 0.9em;
+                        line-height: 1.5em;
+                    }
+
+                    #rulesSection {
+                        width: 100%;
+                    }
+
+                    #rulesSegment {
+                        margin: 2em 0 3em 0;
+                    }
+
+                    #rulesWrapper {
+                        margin-left: 10%;
+                        margin-right: 5%;
+                    }
+
+                    #rulesHeader {
+                        font-size: 1.75em;
+                    }
+
+                    .rule-actual {
+                        display: grid;
+                        grid-template-columns: 15% 85%;
+                        margin: 1em 0 2em 0;
+                    }
+
+                    .number-circle {
+                        margin-top: 0.25em;
+                    }
+
+                    .rule-actual > p {
+                        font-size: 1.15em;
+                        line-height: 1.5em;
+                        margin: 0 1em;
+                    }
+
+                    #mainContentSection {
+                        width: 100%;
+                        height: 100%;
+                        max-height: 35em;
+                        overflow-x: scroll;
+                    }
+                }
+            }
+        }
+
+        /* Desktops/Large Screens */
+        @media screen and (min-width: 1000px) {
+            #bannerSection {
+                padding-top: 5.25em;
+            }
+
+            #innerBanner {
+                display: grid;
+                grid-template-columns: 42.5% 57.5%;
+                grid-template-rows: auto;
             }
 
             #verbiageSection {
-                text-align: center;
-            }
-        }
-
-        @media screen and (min-width: 1000px) {
-            #verbiageSection > p {
-                width: 50%;
+                display: flex;
+                flex-flow: column;
             }
 
-        }
-    </style>
-    <style>
-        footer {
-            display: none;
+            .silly-right-margin {
+                margin-right: 15%;
+            }
+
+            #bigFrickenLogoWrapper {
+                width: 100%;
+            }
+
+            #bigFrickenLogoContainer {
+                width: 100%;
+            }
+
+            #bigFrickenLogo {
+                width: 100%;
+                height: auto;
+            }
+
+            #centeredCopyWrapper {
+                margin-left: 27.5%;
+            }
+
+            #centeredCopy > p {
+                font-weight: 400;
+                font-size: 1.12em;
+                line-height: 1.75em;
+
+            }
+
+            #rulesContainer {
+                display: flex;
+                flex-flow: column;
+            }
+
+            #rulesActualSegment {
+                width: 100%;
+            }
+
+            #rulesHeader {
+                font-size: 2.525em;
+            }
+
+            #rulesHeaderWrapper {
+                margin-left: 1.75em;
+                margin-right: 25%;
+            }
+
+            #rulesActualWrapper {
+                margin: 0em 2em 3em 2em;
+            }
+
+            #rulesActualContainer {
+                margin-right: 5.5em;
+                margin-top: 2em;
+            }
+
+            .rules-actual-paragraph {
+                height: auto;
+            }
+
+            .rule-actual {
+                display: grid;
+                grid-template-columns: 7.5% 92.5%;
+                margin: 1em 0 2em 0;
+            }
+
+            .number-circle {
+                margin-top: 0.25em;
+            }
+
+            .rule-actual > p {
+                font-size: 1.4em;
+                line-height: 1.5em;
+                margin: 0;
+            }
         }
     </style>
 
@@ -101,23 +540,73 @@
     <div id="bannerSection">
         <div id="innerBanner">
             <div id="verbiageSection">
-                <h2>Be it, with <span class="beeya-font">Beeya</span></h2>
-                <p>Beeya is the only job search site that uses AI to match you with
-                    jobs that you have the best chance at landing, for free. Our world
-                    class algorithm learns your job preferences and combs through
-                    11 million jobs to apply for. Get started now by training your
-                    algorithm. Here's how it works:
-                    <br />
-                    <b>Step 1: Search for the job you want</b>
-                    <br />
-                    <b>Step 2: Apply to the jobs you like. Our AI will learn your job
-                        preferences and show you 10 more jobs.</b>
-                    <br />
-                    <b>Step 3: Repeat. Beeya is free forever for job searchers.</b>
-                </p>
+                <div id="bigFrickenLogoSegment" class="silly-right-margin">
+                    <div id="bigFrickenLogoWrapper">
+                        <div id="bigFrickenLogoContainer">
+                            <div class="img-box">
+                                <img id="bigFrickenLogo" src="https://beeya-web-assets.s3.amazonaws.com/Beeya-Logo.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="centeredCopySegment" class="silly-right-margin">
+                    <div id="centeredCopyWrapper">
+                        <div id="centeredCopy">
+                            <p>Beeya is the only job search site that uses AI
+                                (Artificial Intelligence) to match you with
+                                jobs that you have the best chance at
+                                landing, <b>for free</b>. Our world class algorithm
+                                learns your job preferences and combs through
+                                11 million jobs to apply for.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="rulesSection">
+                <div id="rulesSegment">
+                    <div id="rulesWrapper">
+                        <div id="rulesContainer">
+                            <div id="rulesHeaderSegment">
+                                <div id="rulesHeaderWrapper">
+                                    <h1 id="rulesHeader">Get started now by training your algorithm.</h1>
+                                </div>
+                            </div>
+
+                            <div id="rulesActualSegment">
+                                <div id="rulesActualWrapper">
+                                    <div id="rulesActualContainer">
+                                        <div class="rules-actual-paragraph">
+                                            <span class="rule-actual beeya-orange">
+                                                <div class="number-circle">1</div>
+                                                <p><b>Search for the job you want.</b></p>
+                                            </span>
+                                        </div>
+
+                                        <div class="rules-actual-paragraph">
+                                            <span class="rule-actual beeya-orange">
+                                                <div class="number-circle">2</div>
+                                                <p><b>Apply to the jobs you like and our AI will learn your job
+                                                    preferences and show you {!! env('MAX_PAGE_RESULTS', 10) !!}
+                                                    more jobs.</b>
+                                                </p>
+                                            </span>
+                                        </div>
+
+                                        <div class="rules-actual-paragraph">
+                                            <span class="rule-actual beeya-orange">
+                                                <div class="number-circle">3</div>
+                                                <p><b>Repeat. Beeya is free forever for job searchers.</b></p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
     <!-- Insert vueJS Component here -->
     <div id="mainContentSection">
