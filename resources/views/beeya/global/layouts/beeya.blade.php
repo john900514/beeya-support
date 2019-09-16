@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:title" content="Beeya">
-    <meta property="og:description" content="Beeya">
+    <meta property="og:description" content="Try! Beeya FREE | Job Search | Use A.I. to match you with the perfect job today!">
     <meta property="og:image" content="{!! env('APP_URL') !!}/img/favicon.png">
     <meta property="og:url" content="{!! Request::url() !!}">
 
