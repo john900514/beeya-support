@@ -19,7 +19,7 @@
                         <p>{{ loc }}</p>
                     </div>
                     <div class="result-learn-more">
-                        <a :href="url" target="_blank" @click="pickMee()">LEARN MORE</a>
+                        <a :href="url" target="_blank">LEARN MORE</a>
                     </div>
                 </div>
             </div>

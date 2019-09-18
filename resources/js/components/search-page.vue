@@ -4,7 +4,7 @@
             <search-component></search-component>
         </div>
 
-        <div id="searchResultsWrapper" v-show="(!gameOver) && totalRecords > 0">
+        <div id="searchResultsWrapper" v-show="toggleSearchResults">
             <div class="counter-wrapper">
                 <p>{{ resultsVerbiage }}</p>
             </div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div v-show="getMoreResults" class="result-ctrl-panel">
+            <div class="result-ctrl-panel">
                 <div class="ctrl-inner-wrap">
                     <div class="counter-wrapper"></div>
 
@@ -71,8 +71,31 @@
         name: "search-page",
         props: ['gameid','gamerounds','reqclicks'],
         watch: {
+            clicks(num) {
+                console.log('Total clicks this round -'+ num);
+                console.log('Needed clicks left - '+ parseInt(this.neededClicks - num));
+            },
             loading(flag) {
                 this.toggleLoader(flag);
+            },
+            toggleSearchResults(flag) {
+                if(flag) {
+                    setTimeout(function () {
+                        console.log('Gonna try to scroll');
+                        if(md.phone()) {
+                            $('body').animate({ scrollTop: 500 }, 1500)
+                        }
+                        else if(md.tablet()) {
+                            $('#mainContentSection').animate({ scrollTop: 500 }, 1500)
+                            //importLink('assets/css/tablet.css');
+                        }
+                        else {
+                            $('html').animate({ scrollTop: 750 }, 1500)
+                        }
+
+
+                    }, 500);
+                }
             }
         },
         data() {
@@ -101,7 +124,7 @@
         computed: {
             getMoreResults() {
                 // if there are still rounds left AND we have met or exceeeded the min clicks
-                if((this.round < parseInt(this.gamerounds)) && (this.clicks >= parseInt(this.neededClicks))) {
+                if((this.round < parseInt(this.gamerounds)) && (this.clicks >= parseInt(this.reqclicks))) {
                     // if this is a shortened click round due to lack of results.
                     if(parseInt(this.neededClicks) < parseInt(this.reqclicks)) {
                         let _this = this;
@@ -111,6 +134,7 @@
                         });
                     }
                     else {
+
                         return true;
                     }
                 }
@@ -144,7 +168,13 @@
                 }
 
                 return  results;
-            }
+            },
+            toggleSearchResults() {
+                let res = ((this.gameOver === false) && this.totalRecords > 0);
+
+                return res;
+
+            },
         },
         methods: {
             startNewSearch() {
@@ -175,12 +205,38 @@
                 }
             },
             startNextRound() {
-                this.clicks = 0;
-                this.neededClicks = this.reqclicks;
-                this.searchResults = [];
-                this.recordsRetrieved = 0;
-                this.round++;
-                this.getSearchResults();
+                if((this.round < parseInt(this.gamerounds))) {
+                    let prompt = "Are you sure? There's still lots of great results to choose from!";
+                    let choice = false;
+
+                    if((this.round < parseInt(this.gamerounds)) && (this.clicks >= parseInt(this.neededClicks))) {
+                        choice = true;
+                    }
+                    else {
+                        choice = confirm(prompt);
+                    }
+
+                    if(choice === true) {
+                        if(this.clicks < this.neededClicks) {
+                            this.clicks = this.neededClicks
+                        }
+
+                        if(this.getMoreResults === true) {
+                            this.clicks = 0;
+                            this.neededClicks = this.reqclicks;
+                            // this.searchResults = [];
+                            this.recordsRetrieved = 0;
+                            this.round++;
+                            this.getSearchResults();
+                        }
+                    }
+                }
+                else {
+                    let _this = this;
+                    $('#searchResultsWrapper').fadeOut(function () {
+                        _this.gameOver = true;
+                    });
+                }
             },
             setResults(results) {
                 if(results !== null) {
@@ -234,13 +290,12 @@
                                 _this.page++;
 
                                 _this.showResults = true;
+                                _this.loading = false;
                                 _this.setResults(data['results']['records']);
                                 if(Array.isArray(data['results']['records'])) {
                                     _this.recordsRetrieved = _this.recordsRetrieved + data['results']['records'].length;
                                 }
                                 _this.totalRecords = data['results']['total'];
-                                _this.loading = false;
-
                             }
                             else {
                                 alert(data['reason']);
@@ -273,7 +328,7 @@
                 this.nowReallyUpdateClicks();
             },
             nowReallyUpdateClicks() {
-                // let _this = this;
+                let _this = this;
                 let job = this.searchResults[0][this.clickedPos];
 
                 let data = {
@@ -303,10 +358,10 @@
                     dataType: 'json',
                     data: data,
                     success(data) {
-                        console.log(data)
+                        console.log(data);
                     },
                     error(e) {
-                        console.log(e)
+                        console.log(e);
                     }
                 });
             },
