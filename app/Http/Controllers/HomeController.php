@@ -28,6 +28,7 @@ class HomeController extends Controller
 
         $args['game_rounds'] = env('GAME_ROUNDS', 3);
         $args['reqd_clicks'] = env('REQD_CLICKS', 5);
+        $args['search_mode'] = env('SEARCH_MODE', 'Default');
 
         return view('home', $args);
     }

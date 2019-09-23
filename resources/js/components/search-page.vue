@@ -1,7 +1,9 @@
 <template>
     <div class="template-wrapper">
         <div id="searchWrapper">
-            <search-component></search-component>
+            <search-component
+                :searchmode="searchmode"
+            ></search-component>
         </div>
 
         <div id="searchResultsWrapper" v-show="toggleSearchResults">
@@ -69,7 +71,7 @@
 
     export default {
         name: "search-page",
-        props: ['gameid','gamerounds','reqclicks'],
+        props: ['gameid','gamerounds','reqclicks', 'searchmode'],
         watch: {
             clicks(num) {
                 console.log('Total clicks this round -'+ num);
@@ -96,7 +98,27 @@
 
                     }, 500);
                 }
-            }
+            },
+            jobLocation(loc) {
+                if(this.searchmode === 'google') {
+                    let _this = this;
+                    let service = new google.maps.places.AutocompleteService();
+                    service.getQueryPredictions({ input: loc }, function(predictions, status) {
+                        if (status != google.maps.places.PlacesServiceStatus.OK) {
+                            console.log(status);
+                            return;
+                        }
+
+                        let results = [];
+
+                        predictions.forEach(function(prediction) {
+                            results.push(prediction);
+                        });
+
+                        _this.storeSearchResults(results);
+                    });
+                }
+            },
         },
         data() {
             return {
@@ -106,6 +128,8 @@
                 searchResults: [],
                 jobInput: '',
                 jobLocation: '',
+                locLat: '',
+                locLong: '',
                 totalRecords: 0,
                 recordsRetrieved: 0,
                 page: 1,
@@ -118,7 +142,7 @@
                 clickedPos: '',
                 gameOver: false,
                 neededClicks: 0,
-                gameOverText: 'Congratulations! You\'ve Unlocked Additional Functionality.'
+                gameOverText: 'Congratulations! You\'ve Unlocked Additional Functionality.',
             };
         },
         computed: {
@@ -174,7 +198,7 @@
 
                 return res;
 
-            },
+            }
         },
         methods: {
             startNewSearch() {
@@ -278,6 +302,18 @@
                     page: _this.page
                 };
 
+                // Writing it this way makes this logic module-independent
+                if(this.locLat !== '' && this.locLong !== '') {
+                    console.log('passing coordinates along too!');
+                    data = {
+                        jobTitle: _this.jobInput,
+                        jobLocation: _this.jobLocation,
+                        page: _this.page,
+                        lat: _this.locLat,
+                        long: _this.locLong
+                    };
+                }
+
                 $.ajax({
                     url: 'api/beeya/results',
                     method: 'POST',
@@ -302,6 +338,7 @@
 
                                 if(_this.round === 1) {
                                     _this.showResults = false;
+                                    _this.loading = false;
                                 }
                             }
                         }
@@ -309,12 +346,22 @@
                         {
                             console.log('User error',data);
                             alert('Something weird happened. Try again?');
+                            _this.loading = false;
                         }
                     },
                     error(e) {
                         alert('Ooops something happened. Try again in a sec.');
                         console.log('Server error', e);
+                        _this.loading = false;
                     }
+                });
+            },
+            storeSearchResults(data) {
+                $.ajax({
+                    url: 'api/place-results',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {places: data}
                 });
             },
             updateClicks() {

@@ -4,6 +4,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.7.16/libphonenumber-js.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    @switch($search_mode)
+        @case('google')
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=weather,geometry,visualization,places,drawing&amp;key=AIzaSyDkq3oJJjiylINQYBnoG8imBiTR7uN52WQ"></script>
+        <script>console.log('Google Search mode enabled...')</script>
+        @break
+
+        @default
+        <script>console.log('No Search mode selected...')</script>
+    @endswitch
+
 
     @tablet
         <style>
@@ -1061,6 +1071,7 @@
             gameid="{!! $game_token !!}"
             gamerounds="{!! $game_rounds !!}"
             reqclicks="{!! $reqd_clicks !!}"
+            searchmode="{!! $search_mode !!}"
         ></search-page>
     </div>
 </main>

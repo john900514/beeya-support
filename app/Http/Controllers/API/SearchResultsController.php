@@ -6,17 +6,19 @@ use App\Click as Clicks;
 use App\GameSessions;
 use App\Leads;
 use Illuminate\Http\Request;
+use App\Services\GeocoderService;
 use App\Services\BeeyaSearchGateway;
 use App\Http\Controllers\Controller;
 
 class SearchResultsController extends Controller
 {
-    protected $beeya, $request;
+    protected $beeya, $request, $search;
 
-    public function __construct(Request $request, BeeyaSearchGateway $beeya)
+    public function __construct(Request $request, BeeyaSearchGateway $beeya, GeocoderService $search)
     {
         $this->request = $request;
         $this->beeya = $beeya;
+        $this->search = $search;
     }
 
     public function get()
@@ -27,8 +29,34 @@ class SearchResultsController extends Controller
 
         $page = array_key_exists('page', $data) ? $data['page'] : 1 ;
 
+        $geocode = [];
+        if(env('SEARCH_MODE') == 'google')
+        {
+            if(array_key_exists('lat', $data) && array_key_exists('long', $data))
+            {
+                $geocode = [
+                    'lat' => $data['lat'],
+                    'long' => $data['long']
+                ];
+
+                // one-sided call to add the record if not exists
+                $this->search->query($data['jobLocation']);
+            }
+            else
+            {
+                // use google?
+                $geocode = $this->search->query($data['jobLocation']);
+            }
+
+        }
+        else
+        {
+            // @todo - if the search engine is default, check the DB before running the line below
+            $geocode = $this->search->query($data['jobLocation']);
+        }
+
         // @todo - if session_id is passed in be sure to log the results
-        $response = $this->beeya->getResults($data['jobTitle'], $data['jobLocation'], $page);
+        $response = $this->beeya->getResults($data['jobTitle'], $data['jobLocation'], $page, $geocode);
 
         if(count($response) > 0)
         {
@@ -89,5 +117,36 @@ class SearchResultsController extends Controller
         }
 
         return response()->json($results);
+    }
+
+    public function autocomplete()
+    {
+        $results = ['success' => false, 'reasons' => 'Search Down ):'];
+
+        $data = $this->request->all();
+
+        if(array_key_exists('l', $data))
+        {
+            $geocode = $this->search->autocomplete($data['l']);
+
+            if(count($geocode) > 0)
+            {
+                $results = ['success' => true, 'places' => $geocode];
+            }
+        }
+
+        return response()->json($results);
+    }
+
+    public function store_autocomplete()
+    {
+        $data = $this->request->all();
+
+        foreach ($data['places'] as $idx => $place)
+        {
+            $this->search->query($place['description']);
+        }
+
+        return response([true], 200);
     }
 }
