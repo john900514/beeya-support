@@ -3,6 +3,18 @@
 @section('extra-header-stuff')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.7.16/libphonenumber-js.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+    @switch($search_mode)
+        @case('google')
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=weather,geometry,visualization,places,drawing&amp;key=AIzaSyDkq3oJJjiylINQYBnoG8imBiTR7uN52WQ"></script>
+        <script>console.log('Google Search mode enabled...')</script>
+        @break
+
+        @default
+        <script>console.log('No Search mode selected...')</script>
+    @endswitch
+
+
     @tablet
         <style>
             @media screen {
@@ -225,14 +237,15 @@
                 main {
                     display: grid;
                     grid-template-columns: 15em auto;
-                    grid-template-rows: auto;
+                    grid-template-rows: 20em;
                 }
 
                 #bannerSection {
                     width: 100%;
-                    height: auto;
-                    max-height: 35em;
+                    height: 100%;
                     overflow-x: scroll;
+                    border-right: 1px solid gainsboro;
+                    border-bottom: 1px solid gainsboro;
                 }
 
                 #innerBanner {
@@ -297,7 +310,7 @@
                 #searchComponentSection {
                     display: flex;
                     flex-flow: column;
-                    margin: 4em 0;
+                    margin: 0;
                 }
 
                 .search-wrapper {
@@ -531,14 +544,15 @@
                     main {
                         display: grid;
                         grid-template-columns: 35% 65%;
-                        grid-template-rows: auto;
+                        grid-template-rows: 20em;
                     }
 
                     #bannerSection {
                         width: 100%;
-                        height: auto;
-                        max-height: 30em;
+                        height: 100%;
                         overflow-x: scroll;
+                        border-right: 1px solid gainsboro;
+                        border-bottom: 1px solid gainsboro;
                     }
 
                     #innerBanner {
@@ -596,9 +610,9 @@
 
                     #mainContentSection {
                         width: 100%;
-                        height: auto;
-                        max-height: 30em;
+                        height: 100%;
                         overflow-x: scroll;
+                        border-bottom: 1px solid gainsboro;
                     }
                 }
             }
@@ -699,14 +713,16 @@
                     main {
                         display: grid;
                         grid-template-columns: 30% 70%;
-                        grid-template-rows: auto;
+                        grid-template-rows: 31em;
                     }
 
                     #bannerSection {
                         width: 100%;
-                        height: auto;
-                        max-height: 35em;
+                        height: 100%;
                         overflow-x: scroll;
+
+                        border-right: 1px solid gainsboro;
+                        border-bottom: 1px solid gainsboro;
                     }
 
                     #innerBanner {
@@ -764,8 +780,8 @@
                     #mainContentSection {
                         width: 100%;
                         height: 100%;
-                        max-height: 35em;
                         overflow-x: scroll;
+                        border-bottom: 1px solid gainsboro;
                     }
                 }
             }
@@ -1055,6 +1071,7 @@
             gameid="{!! $game_token !!}"
             gamerounds="{!! $game_rounds !!}"
             reqclicks="{!! $reqd_clicks !!}"
+            searchmode="{!! $search_mode !!}"
         ></search-page>
     </div>
 </main>

@@ -11,7 +11,7 @@ class BeeyaSearchGateway
 
     }
 
-    public function getResults($job, $location, $page = 1)
+    public function getResults($job, $location, $page = 1, $coordinates = [])
     {
         $results = [];
 
@@ -26,6 +26,17 @@ class BeeyaSearchGateway
             'jobs_per_page' => env('MAX_PAGE_RESULTS', 16),
             'days_ago' => env('MAX_AD_AGE', 21)
         ];
+
+        // @todo - if $coordinates are not empty
+        if(array_key_exists('lat', $coordinates) && array_key_exists('long', $coordinates))
+        {
+            // @todo - apply the lat an long to the request
+            $payload['locationLat'] = $coordinates['lat'];
+            $payload['locationLong'] = $coordinates['long'];
+            //gratutitous
+            unset($payload['location']);
+        }
+
 
         $response = Curl::to($api_url)
             ->withContentType('application/json')
