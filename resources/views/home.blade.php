@@ -6,7 +6,8 @@
 
     @switch($search_mode)
         @case('google')
-        <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=weather,geometry,visualization,places,drawing&amp;key=AIzaSyDkq3oJJjiylINQYBnoG8imBiTR7uN52WQ"></script>
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=weather,geometry,visualization,places,drawing&amp;key=AIzaSyDkq3oJJjiylINQYBnoG8imBiTR7uN52WQ"></script> -->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=weather,geometry,visualization,places,drawing&amp;key={!! env('GOOGLE_MAPS_API_KEY') !!}"></script>
         <script>console.log('Google Search mode enabled...')</script>
         @break
 
